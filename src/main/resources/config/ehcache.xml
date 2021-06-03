@@ -1,0 +1,55 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.ehcache.org/v3"
+
+        xmlns:jsr107="http://www.ehcache.org/v3/jsr107"
+        xsi:schemaLocation="
+            http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd
+            http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">
+
+    <!--    <service>-->
+    <!--        <jsr107:defaults enable-statistics="true"/>-->
+    <!--    </service>-->
+
+    <service>
+        <jsr107:defaults>
+            <!--用别名“person”定义一个缓存，该别名从缓存模板“cache-template-default”继承-->
+            <jsr107:cache name="person" template="cache-template-default" />
+        </jsr107:defaults>
+    </service>
+    <!--  不用上面的jsr107配置用下方的定义方式也行-->
+    <!-- 定义缓存空间CommonCache，之后的配置缓存空间名字person改成CommonCache即可 -->
+    <cache alias="CommonCache" uses-template="cache-template-default">
+        <expiry>
+            <ttl unit="seconds">300</ttl>
+        </expiry>
+    </cache>
+
+    <cache-template name="cache-template-default">
+        <!--本部分允许您添加缓存事件侦听器。我为5个事件添加了一个侦听器。
+        发生时，每个事件将由EventLogger类记录。-->
+        <listeners>
+            <listener>
+                <class>com.example.ehcache.ehcachelearn.listener.EventLoggerListener</class>
+                <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
+                <event-ordering-mode>UNORDERED</event-ordering-mode>
+                <!--使用此侦听器将条目添加到缓存时，定义CREATED事件。-->
+                <events-to-fire-on>CREATED</events-to-fire-on>
+                <!--使用此侦听器在缓存中更新条目时定义一个UPDATED事件-->
+                <events-to-fire-on>UPDATED</events-to-fire-on>
+                <!-- 当条目从缓存中使用此侦听器过期时，定义一个EXPIRED事件。-->
+                <events-to-fire-on>EXPIRED</events-to-fire-on>
+                <!--当使用此侦听器从缓存中删除条目时，定义一个REMOVED事件。-->
+                <events-to-fire-on>REMOVED</events-to-fire-on>
+                <!--当使用此侦听器从缓存中逐出条目时，定义EVICTED事件。-->
+                <events-to-fire-on>EVICTED</events-to-fire-on>
+            </listener>
+        </listeners>
+        <resources>
+            <!--堆配置为允许2000个条目-->
+            <heap unit="entries">2000</heap>
+            <!--堆外存储配置有100 MB的空间。请记住，度量单位区分大小写。-->
+            <offheap unit="MB">100</offheap>
+        </resources>
+    </cache-template>
+
+</config>
