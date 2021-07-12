@@ -11,11 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @TableName("user")
 public class User {
-@TableField
     private Long id;
     private String name;
     private Integer age;
-    private String email;
+    private String userEmail;
 
 }
 

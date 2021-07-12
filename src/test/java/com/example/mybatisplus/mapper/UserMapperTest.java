@@ -1,8 +1,9 @@
 package com.example.mybatisplus.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import com.example.mybatisplus.entity.User;
 import com.example.mybatisplus.servcie.UserService;
+import com.example.mybatisplus.thread.MyThread;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,19 +30,25 @@ public class UserMapperTest {
 
     @Test
     public void testSelect() {
-        HashMap<String,Object> hashMap = new HashMap<>();
-        hashMap.put("id",2);
-        hashMap.put("id",1);
-        List<User> userList = userMapper.selectList(new QueryWrapper<User>().allEq(hashMap));
-        System.out.println("test1");
-        userList.forEach(System.out::println);
-        List<Map<String,Object>> selectMaps = userMapper.selectMaps(new QueryWrapper<User>().allEq(hashMap));
-
-        System.out.println("test");
-        System.out.println(selectMaps);
-
-        System.out.println(userMapper.selectByMap(hashMap));
-        System.out.println("test1");
-        System.out.println(userService.lambdaQuery().select(User::getAge,User::getEmail).eq(User::getAge,18).list()); ;
+        User user1 = new User(2L,"",1,"aa");
+        User user2 = new User(2L,"",1,"aa");
+        User user4 = new User(3L,"",2,"bb");
+        User user3 = new User(3L, "", 2, "bb");
+        List<User> userList = new ArrayList<>();
+        userList.add(user1);
+        userList.add(user2);
+        userList.add(user3);
+        userList.add(user4);
+        Map<Long,Map<Integer, Set<String>>> map = userList.stream().collect(Collectors.groupingBy(User::getId, Collectors.groupingBy(User::getAge,Collectors.mapping(User::getUserEmail, Collectors.toSet()))));
+        System.out.println(map);
+        Map<Long,List<Integer>> result = userList.stream().filter(e->e.getAge()!=null).collect(Collectors.groupingBy(User::getId, Collectors.mapping(User::getAge, Collectors.toList())));
+        System.out.println(result);
+        System.out.println("hhahaha "+LocalDateTime.now().plusDays(1).plusSeconds(60));
+        Map<String,Object> temp = new HashMap<>();
+        temp.forEach((k,v)->{
+            System.out.println("test");
+        });
+        Integer a = 12;
+        Integer b = 22;
     }
 }
