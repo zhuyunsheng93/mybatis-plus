@@ -1,6 +1,9 @@
 package com.example.mybatisplus.mapper;
 
 
+import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.example.mybatisplus.entity.User;
 import com.example.mybatisplus.servcie.UserService;
 import com.example.mybatisplus.thread.MyThread;
@@ -48,7 +51,14 @@ public class UserMapperTest {
         temp.forEach((k,v)->{
             System.out.println("test");
         });
-        Integer a = 12;
-        Integer b = 22;
+        List<Integer> ids = new ArrayList<>();
+        ids.add(1);
+        System.out.println("用户表：" + userMapper.selectList(Wrappers.<User>lambdaQuery()
+                .select(User::getId, User::getAge, User::getName, User::getId)
+                .and(wrapper -> wrapper.in(CollectionUtil.isNotEmpty(ids), User::getId, ids).or().eq(User::getId, null))
+                .eq(User::getAge,12)
+                .in(StringUtils.isNotBlank("test"),User::getUserEmail, "")));
     }
+
+
 }
