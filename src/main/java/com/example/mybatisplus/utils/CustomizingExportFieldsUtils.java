@@ -1,8 +1,6 @@
 package com.example.mybatisplus.utils;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
-import cn.afterturn.easypoi.excel.annotation.ExcelCollection;
-import cn.afterturn.easypoi.excel.annotation.ExcelEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -110,5 +108,4 @@ public class CustomizingExportFieldsUtils {
             log.error("解析动态表头，恢复注解属性值出错！", e);
         }
     }
-
 }
