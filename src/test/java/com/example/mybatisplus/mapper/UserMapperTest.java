@@ -1,12 +1,11 @@
-package com.example.mybatisplus.mapper;
+package com.example.practicecode.mapper;
 
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.example.mybatisplus.entity.User;
-import com.example.mybatisplus.servcie.UserService;
-import com.example.mybatisplus.thread.MyThread;
+import com.example.practicecode.entity.User;
+import com.example.practicecode.servcie.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;

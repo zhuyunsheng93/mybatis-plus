@@ -28,7 +28,7 @@
         发生时，每个事件将由EventLogger类记录。-->
         <listeners>
             <listener>
-                <class>com.example.mybatisplus.ehcachelearn.listener.EventLoggerListener</class>
+                <class>com.example.practicecode.ehcachelearn.listener.EventLoggerListener</class>
                 <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
                 <event-ordering-mode>UNORDERED</event-ordering-mode>
                 <!--使用此侦听器将条目添加到缓存时，定义CREATED事件。-->

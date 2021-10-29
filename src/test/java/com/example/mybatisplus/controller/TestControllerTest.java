@@ -1,6 +1,6 @@
-package com.example.mybatisplus.controller;
+package com.example.practicecode.controller;
 
-import com.example.mybatisplus.annotation.TestAnnotation;
+import com.example.practicecode.annotation.TestAnnotation;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,8 +8,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *  *@Description          
