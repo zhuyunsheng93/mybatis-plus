@@ -20,4 +20,5 @@ public class ConnectionUtil {
         Connection connection = connectionFactory.newConnection();
         return connection;
     }
+
 }
