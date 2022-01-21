@@ -4,6 +4,11 @@ spring:
     url: jdbc:mysql://192.168.56.10:3306/mybatis?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
     password: root
+  rabbitmq:
+    host: 192.168.56.10
+    username: admin
+    password: admin
+    virtual-host: zhuyunsheng
 #  cache:
 #    ehcache:
 #      config: classpath:config/ehcache.xml

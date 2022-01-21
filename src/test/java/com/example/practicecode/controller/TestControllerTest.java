@@ -24,6 +24,10 @@ class TestControllerTest {
 
     @Test
     void test() throws Exception {
+        Integer i = null;
+                if(3==i){
+                    System.out.println("hahah");
+                }
     }
 
     public static void main(String[] args) throws Exception {
