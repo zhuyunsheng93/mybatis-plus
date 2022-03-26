@@ -35,4 +35,9 @@ public class DataReportExcelServiceImpl implements DataReportExcelService {
         //导出完成恢复注解的原始值
         CustomizingExportFieldsUtils.dynamicResetAnnotation( User.class,stringStringMap);
     }
+
+    @Override
+    public void test() {
+
+    }
 }
