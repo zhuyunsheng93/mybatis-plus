@@ -1,6 +1,7 @@
 package com.example.practicecode.mapper;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -15,6 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 
@@ -29,32 +32,27 @@ public class UserMapperTest {
 
     @Test
     public void testSelect() {
-        User user1 = new User(2L,"",1,"aa");
-        User user2 = new User(2L,"",1,"aa");
-        User user4 = new User(3L,"",2,"bb");
-        User user3 = new User(3L, "", 2, "bb");
-        List<User> userList = new ArrayList<>();
-        userList.add(user1);
-        userList.add(user2);
-        userList.add(user3);
-        userList.add(user4);
-        Map<Long,Map<Integer, Set<String>>> map = userList.stream().collect(Collectors.groupingBy(User::getId, Collectors.groupingBy(User::getAge,Collectors.mapping(User::getUserEmail, Collectors.toSet()))));
-        System.out.println(map);
-        Map<Long,List<Integer>> result = userList.stream().filter(e->e.getAge()!=null).collect(Collectors.groupingBy(User::getId, Collectors.mapping(User::getAge, Collectors.toList())));
-        System.out.println(result);
-        System.out.println("hhahaha "+LocalDateTime.now().plusDays(1).plusSeconds(60));
-        Map<String,Object> temp = new HashMap<>();
-        temp.forEach((k,v)->{
-            System.out.println("test");
-        });
-        List<Integer> ids = new ArrayList<>();
-        ids.add(1);
-        System.out.println("用户表：" + userMapper.selectList(Wrappers.<User>lambdaQuery()
-                .select(User::getId, User::getAge, User::getName, User::getId)
-                .and(wrapper -> wrapper.in(CollectionUtil.isNotEmpty(ids), User::getId, ids).or().eq(User::getId, null))
-                .eq(User::getAge,12)
-                .in(StringUtils.isNotBlank("test"),User::getUserEmail, "")));
-    }
+        Map<String,Object> map1 = new HashMap<>();
+        map1.put("address_name","ab");
+        System.out.println(entityValueMap(map1));
 
+}
+    public Map<String, Object> entityValueMap(Map<String, Object> entityMap) {
+        Pattern linePattern =  Pattern.compile("_(\\w)");
+        Map<String, Object> transMap = new HashMap<>();
+        Set<String> keyList = entityMap.keySet();
+        keyList.forEach(str -> {
+            Object value = entityMap.get(str);
+            str = str.toLowerCase();
+            Matcher matcher = linePattern.matcher(str);
+            StringBuffer sb = new StringBuffer();
+            while (matcher.find()) {
+                matcher.appendReplacement(sb, matcher.group(1).toUpperCase());
+            }
+            matcher.appendTail(sb);
+            transMap.put(sb.toString(), value);
+        });
+        return transMap;
+    }
 
 }
